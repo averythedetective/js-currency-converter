@@ -14,7 +14,7 @@ async function fetchExchangeRates(baseCurrency, value, currencies) {
     document.querySelector('.currency-code-secondary')
       .innerHTML = `${targetCurrencyCode}`;
     document.querySelector('.currency-rate-secondary')
-      .innerHTML = `${targetCurrencyValue}`;
+      .innerHTML = `${targetCurrencyValue * value}`;
 
   } catch(error) {
     console.warn('Error accessing the exchange rate:', error);

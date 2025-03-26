@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currency Dropdown with Flags</title>
+  <style>
+    /* CSS Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .dropdown-container {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    select {
+      width: 20%;
+      padding: 2px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .flag {
+      vertical-align: middle;
+      margin-right: 8px;
+      width: 24px;
+      height: 18px;
+    }
+    
+    .base-currency-dropmenu {
+      display: flex;
+      /* border: 2px solid red; */
+      align-items: center;
+      gap: 1vw;
+      padding: 2vw;
+      background-color: rgb(221, 221, 221);
+      border-radius: 1vw;
+    }
+
+    .base-currency-dropmenu img {
+      border: 2px solid red;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="dropdown-container">
+    <div class="base-currency-dropmenu">
+    <span>BASE CURRENCY: </span>
+    <img id = "flagImg" src="" alt="">
+    <select id="baseCurrency">
+      <option value="PKR">  PKR</option>
+    </select>
+  </div>
+
+    <label for="targetCurrency">Target Currency:</label>
+    <select id="targetCurrency"></select>
+  </div>
+
+  <script>
+    // Fetch the JSON data from the API
+    const apiUrl = "https://flagcdn.com/en/codes.json";
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Process the data and populate the dropdowns
+        populateDropdown("baseCurrency", data);
+        populateDropdown("targetCurrency", data);
+      })
+      .catch(error => console.error("Error fetching currency data:", error));
+
+    // Function to populate a dropdown with currency options and flags
+    function populateDropdown(dropdownId, data) {
+      const dropdown = document.getElementById(dropdownId);
+
+      // Clear existing options
+      dropdown.innerHTML = '<option value="">Select Currency</option>';
+
+      // Iterate through the JSON data and create options
+      Object.entries(data).forEach(([code, name]) => {    // [code].name
+        const option = document.createElement("option");
+        option.value = code;
+
+        // Combine the flag image and text into the option label
+        option.innerHTML = `${code.toUpperCase()}`; 
+
+        // Append the option to the dropdown
+        dropdown.appendChild(option);
+      });
+      dropdown.addEventListener('change', () => {
+        const SelectedValue = dropdown.value;
+        addFlag(SelectedValue);
+        console.log(`VALUE OF DROP DOWN IS ${SelectedValue.toUpperCase()}`);
+      });
+    }
+    
+    function addFlag(code) {
+      const flagUrl = `https://flagsapi.com/${code.toUpperCase()}/flat/64.png`;
+      
+      const flagImage = document.getElementById("flagImg");
+      flagImage.src = flagUrl;
+    }
+  </script>
+</body>
+</html>

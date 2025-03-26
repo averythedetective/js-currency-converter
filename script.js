@@ -22,8 +22,6 @@ async function fetchExchangeRates(baseCurrency, value, currencies) {
   }
 }
 
-// -------------------------------------------------------------------------------
-
 function fetchValues() {
   baseCurrency = document.getElementById('base-currency').value;
   console.log(baseCurrency);
@@ -40,20 +38,3 @@ function fetchValues() {
 
   fetchExchangeRates(baseCurrency, value, currencies);
 }
-
-// WE ARE TAKING 3 VALUES
-// BASE CURRENCY, BASE CURRENCY VALUE, TARGET CURRENCY
-// WE HAVE TO DISPLAY BASE CURRENCY AND ITS VALUE
-// ALONG WITH TARGET CURRENCY AND ITS VALUE
-
-/*
-  When we click the submit button, it should take the values we inserted and pass them to the API.
-  Then the API will fetch for the relevant data and give us the required data.
-  After doing so, we'll display target and base currency rates accordingly.
-*/
-
-/*
-  // DISPLAY MAP:
-  BASE_CURRENCY       ${baseCurrency}                                    VALUE_WE_PROVIDED     $[value]
-  TARGET_CURRENCY     ${targetCurrencyCode}                              VALUE_WE_FETCHED      ${targetCurrencyValue}
-*/

@@ -41,7 +41,8 @@
       height: 18px;
     }
     
-    .base-currency-dropmenu {
+    .base-currency-dropmenu,
+    .target-currency-dropmenu {
       display: flex;
       /* border: 2px solid red; */
       align-items: center;
@@ -51,7 +52,12 @@
       border-radius: 1vw;
     }
 
-    .base-currency-dropmenu img {
+    .base-currency-dropmenu {
+      margin-bottom: 10px;
+    }
+
+    .base-currency-dropmenu img,
+    .target-currency-dropmenu img {
       border: 2px solid red;
       height: 100%;
     }
@@ -61,14 +67,19 @@
   <div class="dropdown-container">
     <div class="base-currency-dropmenu">
     <span>BASE CURRENCY: </span>
-    <img id = "flagImg" src="" alt="">
+    <img id="flagImg" src="" alt="">
     <select id="baseCurrency">
       <option value="PKR">  PKR</option>
     </select>
   </div>
 
-    <label for="targetCurrency">Target Currency:</label>
-    <select id="targetCurrency"></select>
+    <div class="target-currency-dropmenu">
+      <span>TARGET CURRENCY: </span>
+      <img id ="flagImg2" src="" alt="">
+      <select id="targetCurrency">
+        <option value="PKR">  PKR</option>
+      </select>
+    </div>
   </div>
 
   <script>
@@ -87,12 +98,13 @@
     // Function to populate a dropdown with currency options and flags
     function populateDropdown(dropdownId, data) {
       const dropdown = document.getElementById(dropdownId);
+      const dropdownValue = dropdownId;
 
       // Clear existing options
       dropdown.innerHTML = '<option value="">Select Currency</option>';
 
       // Iterate through the JSON data and create options
-      Object.entries(data).forEach(([code, name]) => {    // [code].name
+      Object.entries(data).forEach(([code, name]) => {
         const option = document.createElement("option");
         option.value = code;
 
@@ -102,19 +114,44 @@
         // Append the option to the dropdown
         dropdown.appendChild(option);
       });
+
       dropdown.addEventListener('change', () => {
         const SelectedValue = dropdown.value;
-        addFlag(SelectedValue);
+
+        addFlag(SelectedValue, dropdownValue);
         console.log(`VALUE OF DROP DOWN IS ${SelectedValue.toUpperCase()}`);
       });
     }
     
-    function addFlag(code) {
+    function addFlag(code, dropdownValue) {
       const flagUrl = `https://flagsapi.com/${code.toUpperCase()}/flat/64.png`;
+      console.log(flagUrl);
+      console.log(dropdownValue);
+
+      if (dropdownValue === "baseCurrency") {
+        const flagImage = document.getElementById("flagImg");
+        flagImage.src = flagUrl;
+      }
       
-      const flagImage = document.getElementById("flagImg");
-      flagImage.src = flagUrl;
+      if (dropdownValue === "targetCurrency") {
+        const flagImage2 = document.getElementById("flagImg2");
+        flagImage2.src = flagUrl;
+      }
     }
+
+
+    /* 
+      // ALGORITHM
+      1. We can check what dropdownId we have to serve a condition.
+      2. If the condition is true for baseCurrency, then we will change the flag in baseCurrency.
+      3. If the condition is true for targetCurrency, then we will change the flag in targetCurrency.
+
+      Problem: We are getting all the dropdown options inside the dropValue in one instance. We need to find a way to make sure we only get what we want.
+
+      Possibly, we could work with trying to distinguish one of the options, one way or the other.
+
+      Solved: I used the dropdownId to disguish both dropdowns.
+    */
   </script>
 </body>
 </html>

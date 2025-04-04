@@ -16,11 +16,39 @@ body {
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
   width: 400px;
+}
+
+.selector-main {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  height: 64px;
+}
+
+.selector-main img {
+  margin-left: 10px;
+}
+
+.dropdown-title {
+  color: #1a237e;
+  display: block;
+  font-weight: bold;
+  margin-bottom: -10px;
+}
+
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 .form-title {
@@ -30,6 +58,8 @@ body {
 .form-section,
 .results-section {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-section h2 {
@@ -90,8 +120,33 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  height: 110px;
   width: 400px;
   margin-top: 30px;
+}
+
+.result-title {
+  margin-left: 10px;
+}
+
+.result-container {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.primary-result {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 10px;
+}
+
+.secondary-result {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 10px;
 }
 
 .currency-code,
@@ -100,11 +155,7 @@ body {
   display: inline;
 }
 
-.currency-code {
-  margin-right: 250px;
-}
-
-.primary-result {
-  margin-top: 20px;
-  margin-bottom: 20px;
+.currency-code-primary,
+.currency-rate-primary {
+  margin-bottom: 10px;
 }
